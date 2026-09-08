@@ -14,10 +14,10 @@ const logoImage =
 const contentImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVu9IctVB20ko_5Wt7d1T4IbE0EnitIezWYPBeZHAJipKDD5ir2rIGJpxr&s=10";
 
-// Adicionado o campo 'link' para cada departamento
+// Atualizado o link de Fantasia
 const departamentos = [
   { nome: "Romance clichê", img: contentImage, link: "/romance" },
-  { nome: "Fantasia", img: contentImage, link: "#" },
+  { nome: "Fantasia", img: contentImage, link: "/fantasia" },
   { nome: "KIDS", img: contentImage, link: "#" },
   { nome: "Suspense", img: contentImage, link: "#" },
   { nome: "Aventura", img: contentImage, link: "#" },
@@ -55,7 +55,7 @@ export default function Home() {
       <header className="border-b border-gray-800 bg-[#171717] px-6 py-3">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           {/* LOGO E NOME */}
-          <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-gray-600 bg-white">
               <img
                 src={logoImage}
@@ -66,7 +66,7 @@ export default function Home() {
             <span className="text-sm font-semibold tracking-wide">
               Biblioteca Virtual Sanico Teles
             </span>
-          </div>
+          </Link>
 
           {/* BARRA DE PESQUISA */}
           <div className="relative flex-1 max-w-md">
@@ -140,9 +140,9 @@ export default function Home() {
           <a href="#" className="hover:text-red-500">
             Capa dura
           </a>
-          <a href="#" className="hover:text-red-500">
+          <Link to="/fantasia" className="hover:text-red-500">
             Fantasia
-          </a>
+          </Link>
           <Link to="/romance" className="hover:text-red-500">
             Romance
           </Link>
