@@ -8,5 +8,5 @@ export default [
   route("login", "routes/login.tsx"),
   route("romance", "routes/romance.tsx"),
   route("suspense", "routes/suspense.tsx"),
-  route("terror", "routes/Terror.tsx"),
+  route("terror", "routes/terror.tsx"),
 ] satisfies RouteConfig;

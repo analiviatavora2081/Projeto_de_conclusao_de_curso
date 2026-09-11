@@ -1,5 +1,7 @@
 import { Link } from "react-router";
-import type { Route } from "./+types/home";
+// O caminho do tipo Route foi ajustado para subir um nível caso esteja dentro de uma subpasta,
+// ou remova caso não esteja utilizando a tipagem estrita do React Router.
+import type { Route } from "../+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -16,12 +18,12 @@ const contentImage =
 
 // Configuração dos atalhos por departamento
 const departamentos = [
-  { nome: "Romance clichê", img: contentImage, link: "/romance" },
-  { nome: "Fantasia", img: contentImage, link: "/fantasia" },
-  { nome: "KIDS", img: contentImage, link: "/kids" },
-  { nome: "Suspense", img: contentImage, link: "/suspense" },
-  { nome: "Aventura", img: contentImage, link: "/aventura" },
-  { nome: "Terror", img: contentImage, link: "/terror" },
+  { id: "romance", nome: "Romance clichê", img: contentImage, link: "/romance" },
+  { id: "fantasia", nome: "Fantasia", img: contentImage, link: "/fantasia" },
+  { id: "kids", nome: "KIDS", img: contentImage, link: "/kids" },
+  { id: "suspense", nome: "Suspense", img: contentImage, link: "/suspense" },
+  { id: "aventura", nome: "Aventura", img: contentImage, link: "/aventura" },
+  { id: "terror", nome: "Terror", img: contentImage, link: "/terror" },
 ];
 
 const livrosRecentes = [
@@ -138,9 +140,9 @@ export default function Home() {
             </svg>
             Todas as categorias
           </Link>
-          <a href="#" className="hover:text-red-500">
+          <Link to="/capa-dura" className="hover:text-red-500">
             Capa dura
-          </a>
+          </Link>
           <Link to="/fantasia" className="hover:text-red-500">
             Fantasia
           </Link>
@@ -170,9 +172,9 @@ export default function Home() {
             Navegue por Departamentos
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-8">
-            {departamentos.map((dept, index) => (
+            {departamentos.map((dept) => (
               <Link
-                key={index}
+                key={dept.id}
                 to={dept.link}
                 className="group flex flex-col items-center cursor-pointer"
               >
@@ -203,7 +205,7 @@ export default function Home() {
                 className="flex flex-col overflow-hidden rounded-2xl border border-gray-800 bg-[#121118] p-4 text-left shadow-2xl"
               >
                 <div className="mb-2 flex justify-end">
-                  <button className="text-gray-400 hover:text-white">
+                  <button type="button" aria-label="Mais opções" className="text-gray-400 hover:text-white">
                     <svg
                       className="h-5 w-5"
                       fill="currentColor"
@@ -226,7 +228,7 @@ export default function Home() {
                   {livro.descricao}
                 </p>
 
-                <button className="w-full rounded bg-[#a2234e] py-2 text-xs font-semibold text-white transition-colors hover:bg-[#851b3f]">
+                <button type="button" className="w-full rounded bg-[#a2234e] py-2 text-xs font-semibold text-white transition-colors hover:bg-[#851b3f]">
                   adicione seu livro
                 </button>
               </div>
