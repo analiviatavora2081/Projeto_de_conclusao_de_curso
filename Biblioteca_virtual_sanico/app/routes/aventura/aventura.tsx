@@ -1,4 +1,12 @@
 import { Link } from "react-router";
+import type { Route } from "../+types/aventura";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Livros de Aventura - Biblioteca Virtual Sanico Teles" },
+    { name: "description", content: "Confira a lista de livros de aventura." },
+  ];
+}
 
 const logoImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9WQGkk_VfPS_e3Nmeilj9g3MXf5cEIHZvCO3CPi8x7i5a674E1rj1Oxw&s=10";
@@ -82,7 +90,7 @@ export default function Aventura() {
         </div>
       </header>
 
-      {/* SUB-HEADER / CATEGORIAS (Corrigido os Links) */}
+      {/* SUB-HEADER / CATEGORIAS */}
       <nav className="border-b border-gray-900 bg-black px-6 py-3 font-serif">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-10 text-sm">
           <Link to="/" className="flex items-center gap-2 hover:text-red-500">
@@ -91,7 +99,7 @@ export default function Aventura() {
             </svg>
             Todas as categorias
           </Link>
-          <a href="#" className="hover:text-red-500">Capa dura</a>
+          <Link to="/capa-dura" className="hover:text-red-500">Capa dura</Link>
           <Link to="/fantasia" className="hover:text-red-500">Fantasia</Link>
           <Link to="/romance" className="hover:text-red-500">Romance</Link>
           <Link to="/kids" className="hover:text-red-500">KIDS</Link>
@@ -114,7 +122,7 @@ export default function Aventura() {
               {/* CARD DA ESQUERDA (IMAGEM + TÍTULO) */}
               <div className="w-full max-w-xs rounded-xl border border-gray-800 bg-[#17171c] p-4 text-center shadow-2xl">
                 <div className="mb-2 flex justify-end">
-                  <button className="text-gray-400 hover:text-white">
+                  <button type="button" aria-label="Opções" className="text-gray-400 hover:text-white">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                     </svg>
@@ -137,7 +145,7 @@ export default function Aventura() {
                 </div>
 
                 <div className="mt-8 flex justify-center md:justify-end">
-                  <button className="w-full rounded bg-[#a2234e] py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#851b3f] md:w-64">
+                  <button type="button" className="w-full rounded bg-[#a2234e] py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#851b3f] md:w-64">
                     adicione seu livro
                   </button>
                 </div>

@@ -1,12 +1,12 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
-  index("routes/home.tsx"),
-  route("aventura", "routes/aventura.tsx"),
-  route("fantasia", "routes/fantasia.tsx"),
-  route("kids", "routes/kids.tsx"),
-  route("login", "routes/login.tsx"),
-  route("romance", "routes/romance.tsx"),
-  route("suspense", "routes/suspense.tsx"),
-  route("terror", "routes/terror.tsx"),
+  index("routes/home/home.tsx"),
+  route("aventura", "routes/aventura/aventura.tsx"),
+  route("fantasia", "routes/fantasia/fantasia.tsx"),
+  route("kids", "routes/kids/kids.tsx"),
+  route("login", "routes/login/login.tsx"),
+  route("romance", "routes/romance/romance.tsx"),
+  route("suspense", "routes/suspense/suspense.tsx"),
+  route("terror", "routes/terror/Terror.tsx"),
 ] satisfies RouteConfig;

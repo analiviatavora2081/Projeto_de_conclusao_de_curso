@@ -1,4 +1,12 @@
 import { Link } from "react-router";
+import type { Route } from "../+types/terror";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Livros de Terror - Biblioteca Virtual Sanico Teles" },
+    { name: "description", content: "Confira a lista de livros da categoria Terror." },
+  ];
+}
 
 const logoImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9WQGkk_VfPS_e3Nmeilj9g3MXf5cEIHZvCO3CPi8x7i5a674E1rj1Oxw&s=10";
@@ -65,7 +73,7 @@ export default function Terror() {
           <div className="flex items-center gap-3 text-xs">
             <Link
               to="/login"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-600 text-white hover:bg-gray-500 transition-colors"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-600 text-white hover:bg-gray-500 transition-colors cursor-pointer"
               title="Ir para o Login"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
@@ -73,7 +81,7 @@ export default function Terror() {
               </svg>
             </Link>
             <div className="leading-tight">
-              <p className="text-gray-300">Olá, visitantes</p>
+              <p className="text-gray-300">Olá, visitante</p>
               <Link to="/login" className="font-bold hover:underline">
                 Entre ou Cadastre-se
               </Link>
@@ -91,20 +99,20 @@ export default function Terror() {
             </svg>
             Todas as categorias
           </Link>
-          <a href="#" className="hover:text-red-500">Capa dura</a>
+          <Link to="/capa-dura" className="hover:text-red-500">Capa dura</Link>
           <Link to="/fantasia" className="hover:text-red-500">Fantasia</Link>
           <Link to="/romance" className="hover:text-red-500">Romance</Link>
           <Link to="/kids" className="hover:text-red-500">KIDS</Link>
           <Link to="/suspense" className="hover:text-red-500">Suspense</Link>
           <Link to="/aventura" className="hover:text-red-500">Aventura</Link>
-          <Link to="/terror" className="text-white hover:text-red-400 font-semibold">Terror</Link>
+          <Link to="/terror" className="text-red-500 font-bold hover:text-red-400">Terror</Link>
         </div>
       </nav>
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="mx-auto max-w-4xl px-6 py-12">
         <h1 className="mb-14 text-center text-4xl tracking-wide">
-          Livros Terror
+          Livros de Terror
         </h1>
 
         <div className="flex flex-col gap-16">
@@ -114,7 +122,7 @@ export default function Terror() {
               {/* CARD DA ESQUERDA (IMAGEM + TÍTULO) */}
               <div className="w-full max-w-xs rounded-xl border border-gray-800 bg-[#17171c] p-4 text-center shadow-2xl">
                 <div className="mb-2 flex justify-end">
-                  <button className="text-gray-400 hover:text-white">
+                  <button type="button" aria-label="Opções" className="text-gray-400 hover:text-white">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                     </svg>
@@ -137,7 +145,7 @@ export default function Terror() {
                 </div>
 
                 <div className="mt-8 flex justify-center md:justify-end">
-                  <button className="w-full rounded bg-[#e2e2e2] py-2 text-xs font-serif text-black hover:bg-white transition-colors md:w-56 shadow">
+                  <button type="button" className="w-full rounded bg-[#e2e2e2] py-2 text-xs font-serif text-black hover:bg-white transition-colors md:w-56 shadow">
                     adicione seu livro
                   </button>
                 </div>

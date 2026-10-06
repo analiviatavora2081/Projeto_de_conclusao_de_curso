@@ -1,6 +1,5 @@
-import { Link } from "react-router";
-// O caminho do tipo Route foi ajustado para subir um nível caso esteja dentro de uma subpasta,
-// ou remova caso não esteja utilizando a tipagem estrita do React Router.
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router";
 import type { Route } from "../+types/home";
 
 export function meta({}: Route.MetaArgs) {
@@ -16,7 +15,6 @@ const logoImage =
 const contentImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVu9IctVB20ko_5Wt7d1T4IbE0EnitIezWYPBeZHAJipKDD5ir2rIGJpxr&s=10";
 
-// Configuração dos atalhos por departamento
 const departamentos = [
   { id: "romance", nome: "Romance clichê", img: contentImage, link: "/romance" },
   { id: "fantasia", nome: "Fantasia", img: contentImage, link: "/fantasia" },
@@ -51,10 +49,47 @@ const livrosRecentes = [
 ];
 
 export default function Home() {
+  // Estados para gerir a pesquisa na Home
+  const [termo, setTermo] = useState("");
+  const [focado, setFocado] = useState(false);
+  const navigate = useNavigate();
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  // Lista de sugestões baseada no termo digitado
+  const sugestoes = livrosRecentes.filter((livro) =>
+    livro.titulo.toLowerCase().includes(termo.toLowerCase())
+  );
+
+  // Fecha as sugestões ao clicar fora da barra de pesquisa
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setFocado(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Envia a pesquisa
+  const handleBuscar = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (termo.trim().length > 0) {
+      setFocado(false);
+      navigate(`/pesquisa?q=${encodeURIComponent(termo)}`);
+    }
+  };
+
+  const handleSelecionarSugestao = (titulo: string) => {
+    setTermo(titulo);
+    setFocado(false);
+    navigate(`/pesquisa?q=${encodeURIComponent(titulo)}`);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* HEADER PRINCIPAL */}
-      <header className="border-b border-gray-800 bg-[#333333] px-6 py-3">
+      <header className="border-b border-gray-800 bg-[#333333] px-6 py-3 relative z-30">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           {/* LOGO E NOME */}
           <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
@@ -70,26 +105,68 @@ export default function Home() {
             </span>
           </Link>
 
-          {/* BARRA DE PESQUISA */}
-          <div className="relative flex-1 max-w-md">
-            <input
-              type="text"
-              placeholder="Pesquisa de livros"
-              className="w-full rounded-full bg-white px-9 py-1 text-sm text-black placeholder-gray-500 outline-none focus:ring-2 focus:ring-red-600"
-            />
-            <svg
-              className="absolute left-3 top-2.5 h-4 w-4 text-gray-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          {/* BARRA DE PESQUISA FUNCIONAL */}
+          <div ref={searchRef} className="relative flex-1 max-w-md">
+            <form onSubmit={handleBuscar} className="relative flex items-center z-30">
+              <input
+                type="text"
+                value={termo}
+                onChange={(e) => {
+                  setTermo(e.target.value);
+                  setFocado(true);
+                }}
+                onFocus={() => setFocado(true)}
+                placeholder="Pesquisa de livros"
+                className="w-full rounded-full bg-white pl-9 pr-4 py-1.5 text-sm text-black placeholder-gray-500 outline-none focus:ring-2 focus:ring-red-600 font-sans"
               />
-            </svg>
+              <button
+                type="submit"
+                aria-label="Pesquisar"
+                className="absolute left-3 top-2 text-gray-500 hover:text-black"
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </form>
+
+            {/* CAIXA SUSPENSA DE SUGESTÕES (DROPDOWN) */}
+            {focado && termo.trim().length > 0 && (
+              <div className="absolute top-0 left-0 right-0 z-20 overflow-hidden rounded-3xl bg-white pt-10 pb-2 text-black shadow-2xl">
+                <div className="flex flex-col border-t border-gray-200">
+                  {sugestoes.length > 0 ? (
+                    sugestoes.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => handleSelecionarSugestao(item.titulo)}
+                        className="px-6 py-2 text-center uppercase tracking-wider text-xs hover:bg-gray-100 font-serif transition-colors"
+                      >
+                        {item.titulo}
+                      </button>
+                    ))
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleBuscar()}
+                      className="px-4 py-2 text-center text-xs text-gray-600 font-sans hover:bg-gray-100"
+                    >
+                      Pesquisar por "{termo}"
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* ÁREA DO USUÁRIO */}

@@ -1,5 +1,12 @@
 import { Link } from "react-router";
+import type { Route } from "../+types/kids";
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Livros KIDS - Biblioteca Virtual Sanico Teles" },
+    { name: "description", content: "Confira a lista de livros infantis." },
+  ];
+}
 
 const logoImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9WQGkk_VfPS_e3Nmeilj9g3MXf5cEIHZvCO3CPi8x7i5a674E1rj1Oxw&s=10";
@@ -91,12 +98,13 @@ export default function Kids() {
             </svg>
             Todas as categorias
           </Link>
-          <a href="#" className="hover:text-red-500">Capa dura</a>
+          <Link to="/capa-dura" className="hover:text-red-500">Capa dura</Link>
           <Link to="/fantasia" className="hover:text-red-500">Fantasia</Link>
           <Link to="/romance" className="hover:text-red-500">Romance</Link>
           <Link to="/kids" className="text-red-500 font-bold hover:text-red-500">KIDS</Link>
-          <a href="#" className="hover:text-red-500">Suspense</a>
-          <a href="#" className="hover:text-red-500">Terror</a>
+          <Link to="/suspense" className="hover:text-red-500">Suspense</Link>
+          <Link to="/aventura" className="hover:text-red-500">Aventura</Link>
+          <Link to="/terror" className="hover:text-red-500">Terror</Link>
         </div>
       </nav>
 
@@ -112,7 +120,7 @@ export default function Kids() {
               {/* CARD DA ESQUERDA (IMAGEM + TÍTULO) */}
               <div className="w-full max-w-xs rounded-xl border border-gray-800 bg-[#242424] p-4 text-center shadow-lg">
                 <div className="mb-2 flex justify-end">
-                  <button className="text-gray-400 hover:text-white">
+                  <button type="button" aria-label="Opções" className="text-gray-400 hover:text-white">
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                     </svg>
@@ -134,7 +142,7 @@ export default function Kids() {
                 </div>
 
                 <div className="mt-6 flex justify-end">
-                  <button className="w-full rounded bg-[#a2234e] py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#851b3f] md:w-64">
+                  <button type="button" className="w-full rounded bg-[#a2234e] py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[#851b3f] md:w-64">
                     adicione seu livro
                   </button>
                 </div>

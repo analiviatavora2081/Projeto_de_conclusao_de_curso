@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import type { Route } from "../+types/login";
 
-
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Login e Cadastro - Biblioteca Virtual Sanico Teles" },
+    { name: "description", content: "Acesse sua conta ou cadastre-se na Biblioteca Virtual." },
+  ];
+}
 
 const logoImage =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9WQGkk_VfPS_e3Nmeilj9g3MXf5cEIHZvCO3CPi8x7i5a674E1rj1Oxw&s=10";
@@ -48,7 +54,7 @@ export default function Login() {
       {/* CABEÇALHO */}
       <header className="border-b border-gray-800 bg-[#2b2b2b] px-6 py-3">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-gray-600 bg-white">
               <img
                 src={logoImage}
@@ -131,9 +137,9 @@ export default function Login() {
                     />
                     Lembrar-me
                   </label>
-                  <a href="#" className="hover:underline">
+                  <Link to="/esqueci-senha" className="hover:underline">
                     Esqueceu sua Senha?
-                  </a>
+                  </Link>
                 </div>
 
                 <button
